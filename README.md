@@ -1,4 +1,4 @@
 image-mosquitto
 ================
 
- A Mosquitto MQTT server 
+Setup Mosquitto MQTT server using Docker
