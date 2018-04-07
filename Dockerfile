@@ -14,6 +14,10 @@ RUN apt-get update && apt-get -q -y --no-install-recommends install $APP psmisc 
 RUN apt-get clean
 RUN rm -rf /tmp/* /var/tmp/* /var/lib/apt/lists/*
 
+# disable cron service
+RUN touch /etc/service/cron/down
+
+# runit - prepare mosquitto service
 RUN mkdir -p /etc/service/$APP
 COPY $APP.run /etc/service/$APP/run
 RUN chmod +x /etc/service/$APP/run
