@@ -15,6 +15,10 @@ RUN apt-get update && apt-get -q -y --no-install-recommends install $APP psmisc 
 RUN apt-get clean
 RUN rm -rf /tmp/* /var/tmp/* /var/lib/apt/lists/*
 
+# add config and password file
+COPY $APP.conf $APP_HOME
+COPY passwd $APP_HOME
+
 # disable cron service
 RUN touch /etc/service/cron/down
 
