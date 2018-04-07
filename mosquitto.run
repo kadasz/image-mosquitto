@@ -1,0 +1,5 @@
+#!/bin/bash
+set -e
+
+exec 2>&1
+exec /sbin/setuser ${APP_USER} /usr/sbin/mosquitto -c /etc/mosquitto/mosquitto.conf
