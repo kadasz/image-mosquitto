@@ -9,7 +9,7 @@ ENV APP_HOME /etc/mosquitto
 ENV DEBIAN_FRONTEND=noninteractive
 RUN echo "deb http://ppa.launchpad.net/mosquitto-dev/mosquitto-ppa/ubuntu xenial main" | tee -a /etc/apt/sources.list.d/$APP.list
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 77B7346A59027B33C10CAFE35E64E954262C4500
-RUN apt-get update && apt-get -q -y --no-install-recommends install $APP
+RUN apt-get update && apt-get -q -y --no-install-recommends install $APP psmisc curl less net-tools lsof iproute2
 
 RUN apt-get clean
 RUN rm -rf /tmp/* /var/tmp/* /var/lib/apt/lists/*
