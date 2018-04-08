@@ -16,7 +16,7 @@ docker build -t image-mosquitto .
 ### Run a container
 
 ```
- docker run -d --name mqtt -p 1883:1883 image-mosquitto
+ docker run -d --name mqtt --hostname mqtt -p 1883:1883 image-mosquitto
 ```
 
 By default, the container will be started with used `/etc/mosquitto/mosquitto.conf` as configuration file, in which:
@@ -28,7 +28,7 @@ The file has one default  user - `mosquitto` with password of `Mosquitto!`
 
 ### To test MQTT service
 
-When run the container from builded image (as above) enter into `mqtt`:
+When run the container from builded image (as above) which is named  `mqtt` enter:
 
 ```
 $ docker exec -it mqtt bash
@@ -59,6 +59,60 @@ You can use command:
 You can use command like this:
 
 ```mosquitto_passwd -D /etc/mosquitto/passwd new_user```
+
+### Run a container with persistence storage
+
+#### Create three directories on host:
+
+```
+mkdir -p /opt/mqtt/conf
+mkdir /opt/mqtt/logs
+mkdir /opt/mqtt/data
+```
+
+You can change `/opt/mqtt/` as needed for your particular needs!
+
+#### Copy files from repo folder:
+
+```
+cp image-mosquitto/imosquitto.conf /opt/mqtt/conf
+cp image-mosquitto/passwd /opt/mqtt/conf
+```
+
+Create a logs file yet:
+
+```
+touch /opt/mqtt/logs/mosquitto.log
+```
+
+#### Change the permissions of the directories
+
+User `mosquitto` must have permissions to read/write to data and logs directory and read to config directory:
+
+```
+chmod -R o+r /opt/mqtt/conf
+chmod -R o+rwx /opt/mqtt/logs
+chmod -R o+rwx /opt/mqtt/data
+```
+
+NOTE: Use the above for testing, better way create to `mosquitto` user on docker host and set permissions only for him.
+
+#### To Create a container hosting the volume mappings
+
+```
+docker run -d --name mqtt --hostname mqtt -p 1883:1883 \
+-v /opt/mqtt/conf:/etc/mosquitto \
+-v /opt/mqtt/logs:/var/log/mosquitto \
+-v /opt/mqtt/data/:/var/lib/mosquitto image-mosquitto
+```
+
+See above for checks and testing `mosquitto` service!
+
+### Volumes
+
+- `/etc/mosquitto` - where `mosquitto` configuration files saved 
+- `/var/log/mosquitto` - path where `mosquitto` write log files
+- `/var/lib/mosquitto` - path where `mosquitto` database is stored
 
 ### Ports
 
