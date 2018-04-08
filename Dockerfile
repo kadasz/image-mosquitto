@@ -1,11 +1,14 @@
 FROM phusion/baseimage:latest
 MAINTAINER Karol D Sz
 
+ENV TZ Europe/Warsaw
+
 ENV APP mosquitto
 ENV APP_PORT 1883
 ENV APP_USER mosquitto
 ENV APP_HOME /etc/mosquitto
-ENV TZ Europe/Warsaw
+ENV APP_LOG_VOLUME /var/log/mosquitto
+ENV APP_DATA_VOLUME /var/lib/mosquitto
 
 ENV DEBIAN_FRONTEND=noninteractive
 RUN echo "deb http://ppa.launchpad.net/mosquitto-dev/mosquitto-ppa/ubuntu xenial main" | tee -a /etc/apt/sources.list.d/$APP.list
@@ -28,6 +31,8 @@ COPY $APP.run /etc/service/$APP/run
 RUN chmod +x /etc/service/$APP/run
 
 RUN chown -R $APP_USER:$APP_USER $APP_HOME
+
+VOLUME ["$APP_HOME", "$APP_LOG_VOLUME", "$APP_DATA_VOLUME"]
 
 WORKDIR $APP_HOME
 EXPOSE $APP_PORT
