@@ -26,6 +26,8 @@ By default, the container will be started with used `/etc/mosquitto/mosquitto.co
 Password file called `passwd` is included in the image.
 The file has one default  user - `mosquitto` with password of `Mosquitto!`
 
+#### To use a custom configuration file you need mount local directory where `mosquitto.conf` file saved - see below on volume mappings!
+
 ### To test MQTT service
 
 When run the container from builded image (as above) which is named  `mqtt` enter:
