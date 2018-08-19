@@ -102,7 +102,8 @@ NOTE: Use the above for testing, better way create to `mosquitto` user on docker
 #### To Create a container hosting the volume mappings
 
 ```
-docker run -d --name mqtt --hostname mqtt -p 1883:1883 \
+docker run -d --name mqtt --hostname mqtt \
+--restart=on-failure:5 -p 1883:1883 \
 -v /opt/mqtt/conf:/etc/mosquitto \
 -v /opt/mqtt/logs:/var/log/mosquitto \
 -v /opt/mqtt/data/:/var/lib/mosquitto image-mosquitto
@@ -115,6 +116,9 @@ See above for checks and testing `mosquitto` service!
 - `/etc/mosquitto` - where `mosquitto` configuration files saved 
 - `/var/log/mosquitto` - path where `mosquitto` write log files
 - `/var/lib/mosquitto` - path where `mosquitto` database is stored
+
+### Policy
+- `restart=on-failure:5` - set a limit of 5 restarts for on-failure policy
 
 ### Ports
 
