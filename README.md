@@ -5,6 +5,14 @@ Setup Mosquitto MQTT server using Docker
 
 ## How to use this image
 
+### Pull the image
+
+![Docker Build](https://img.shields.io/docker/cloud/build/kadasz/image-mosquitto.svg) ![Docker Cloud Automated build](https://img.shields.io/docker/cloud/automated/kadasz/image-mosquitto.svg) ![Docker Pulls](https://img.shields.io/docker/pulls/kadasz/image-mosquitto.svg)
+
+```
+docker pull kadasz/image-mosquitto
+```
+
 ### Build the image
 
 ```
