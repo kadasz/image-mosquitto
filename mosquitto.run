@@ -1,5 +1,4 @@
 #!/bin/bash
 set -e
 
-exec 2>&1
-exec /sbin/setuser ${APP_USER} /usr/sbin/mosquitto -c /etc/mosquitto/mosquitto.conf
+exec /sbin/setuser ${APP_USER} /usr/sbin/mosquitto -c /etc/mosquitto/mosquitto.conf >> $APP_LOG_VOLUME/mosquitto.log 2>&1
